@@ -10,15 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ExperienciaRouteImport } from './routes/experiencia'
 import { Route as LaMarcaRouteImport } from './routes/la-marca'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as ReservasRouteImport } from './routes/reservas'
+import { Route as VisitanosRouteImport } from './routes/visitanos'
 import { Route as CreacionesIndexRouteImport } from './routes/creaciones.index'
 import { Route as CreacionesSlugRouteImport } from './routes/creaciones.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperienciaRoute = ExperienciaRouteImport.update({
+  id: '/experiencia',
+  path: '/experiencia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LaMarcaRoute = LaMarcaRouteImport.update({
@@ -36,6 +43,11 @@ const ReservasRoute = ReservasRouteImport.update({
   path: '/reservas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VisitanosRoute = VisitanosRouteImport.update({
+  id: '/visitanos',
+  path: '/visitanos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CreacionesIndexRoute = CreacionesIndexRouteImport.update({
   id: '/creaciones/',
   path: '/creaciones/',
@@ -49,26 +61,32 @@ const CreacionesSlugRoute = CreacionesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/experiencia': typeof ExperienciaRoute
   '/la-marca': typeof LaMarcaRoute
   '/menu': typeof MenuRoute
   '/reservas': typeof ReservasRoute
+  '/visitanos': typeof VisitanosRoute
   '/creaciones/$slug': typeof CreacionesSlugRoute
   '/creaciones/': typeof CreacionesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/experiencia': typeof ExperienciaRoute
   '/la-marca': typeof LaMarcaRoute
   '/menu': typeof MenuRoute
   '/reservas': typeof ReservasRoute
+  '/visitanos': typeof VisitanosRoute
   '/creaciones/$slug': typeof CreacionesSlugRoute
   '/creaciones': typeof CreacionesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/experiencia': typeof ExperienciaRoute
   '/la-marca': typeof LaMarcaRoute
   '/menu': typeof MenuRoute
   '/reservas': typeof ReservasRoute
+  '/visitanos': typeof VisitanosRoute
   '/creaciones/$slug': typeof CreacionesSlugRoute
   '/creaciones/': typeof CreacionesIndexRoute
 }
@@ -76,34 +94,42 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/experiencia'
     | '/la-marca'
     | '/menu'
     | '/reservas'
+    | '/visitanos'
     | '/creaciones/$slug'
     | '/creaciones/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/experiencia'
     | '/la-marca'
     | '/menu'
     | '/reservas'
+    | '/visitanos'
     | '/creaciones/$slug'
     | '/creaciones'
   id:
     | '__root__'
     | '/'
+    | '/experiencia'
     | '/la-marca'
     | '/menu'
     | '/reservas'
+    | '/visitanos'
     | '/creaciones/$slug'
     | '/creaciones/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExperienciaRoute: typeof ExperienciaRoute
   LaMarcaRoute: typeof LaMarcaRoute
   MenuRoute: typeof MenuRoute
   ReservasRoute: typeof ReservasRoute
+  VisitanosRoute: typeof VisitanosRoute
   CreacionesSlugRoute: typeof CreacionesSlugRoute
   CreacionesIndexRoute: typeof CreacionesIndexRoute
 }
@@ -115,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experiencia': {
+      id: '/experiencia'
+      path: '/experiencia'
+      fullPath: '/experiencia'
+      preLoaderRoute: typeof ExperienciaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/la-marca': {
@@ -138,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReservasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/visitanos': {
+      id: '/visitanos'
+      path: '/visitanos'
+      fullPath: '/visitanos'
+      preLoaderRoute: typeof VisitanosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/creaciones/': {
       id: '/creaciones/'
       path: '/creaciones'
@@ -157,9 +197,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExperienciaRoute: ExperienciaRoute,
   LaMarcaRoute: LaMarcaRoute,
   MenuRoute: MenuRoute,
   ReservasRoute: ReservasRoute,
+  VisitanosRoute: VisitanosRoute,
   CreacionesSlugRoute: CreacionesSlugRoute,
   CreacionesIndexRoute: CreacionesIndexRoute,
 }
