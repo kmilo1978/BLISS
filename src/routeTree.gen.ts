@@ -10,12 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LaMarcaRouteImport } from './routes/la-marca'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as ReservasRouteImport } from './routes/reservas'
+import { Route as CreacionesIndexRouteImport } from './routes/creaciones.index'
+import { Route as CreacionesSlugRouteImport } from './routes/creaciones.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LaMarcaRoute = LaMarcaRouteImport.update({
+  id: '/la-marca',
+  path: '/la-marca',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MenuRoute = MenuRouteImport.update({
@@ -28,35 +36,76 @@ const ReservasRoute = ReservasRouteImport.update({
   path: '/reservas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CreacionesIndexRoute = CreacionesIndexRouteImport.update({
+  id: '/creaciones/',
+  path: '/creaciones/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreacionesSlugRoute = CreacionesSlugRouteImport.update({
+  id: '/creaciones/$slug',
+  path: '/creaciones/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/la-marca': typeof LaMarcaRoute
   '/menu': typeof MenuRoute
   '/reservas': typeof ReservasRoute
+  '/creaciones/$slug': typeof CreacionesSlugRoute
+  '/creaciones/': typeof CreacionesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/la-marca': typeof LaMarcaRoute
   '/menu': typeof MenuRoute
   '/reservas': typeof ReservasRoute
+  '/creaciones/$slug': typeof CreacionesSlugRoute
+  '/creaciones': typeof CreacionesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/la-marca': typeof LaMarcaRoute
   '/menu': typeof MenuRoute
   '/reservas': typeof ReservasRoute
+  '/creaciones/$slug': typeof CreacionesSlugRoute
+  '/creaciones/': typeof CreacionesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/menu' | '/reservas'
+  fullPaths:
+    | '/'
+    | '/la-marca'
+    | '/menu'
+    | '/reservas'
+    | '/creaciones/$slug'
+    | '/creaciones/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/menu' | '/reservas'
-  id: '__root__' | '/' | '/menu' | '/reservas'
+  to:
+    | '/'
+    | '/la-marca'
+    | '/menu'
+    | '/reservas'
+    | '/creaciones/$slug'
+    | '/creaciones'
+  id:
+    | '__root__'
+    | '/'
+    | '/la-marca'
+    | '/menu'
+    | '/reservas'
+    | '/creaciones/$slug'
+    | '/creaciones/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LaMarcaRoute: typeof LaMarcaRoute
   MenuRoute: typeof MenuRoute
   ReservasRoute: typeof ReservasRoute
+  CreacionesSlugRoute: typeof CreacionesSlugRoute
+  CreacionesIndexRoute: typeof CreacionesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/la-marca': {
+      id: '/la-marca'
+      path: '/la-marca'
+      fullPath: '/la-marca'
+      preLoaderRoute: typeof LaMarcaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/menu': {
@@ -82,13 +138,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReservasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/creaciones/': {
+      id: '/creaciones/'
+      path: '/creaciones'
+      fullPath: '/creaciones/'
+      preLoaderRoute: typeof CreacionesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creaciones/$slug': {
+      id: '/creaciones/$slug'
+      path: '/creaciones/$slug'
+      fullPath: '/creaciones/$slug'
+      preLoaderRoute: typeof CreacionesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LaMarcaRoute: LaMarcaRoute,
   MenuRoute: MenuRoute,
   ReservasRoute: ReservasRoute,
+  CreacionesSlugRoute: CreacionesSlugRoute,
+  CreacionesIndexRoute: CreacionesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
