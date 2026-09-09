@@ -26,7 +26,7 @@ export const Route = createFileRoute("/menu")({
 });
 
 function MenuPage() {
-  const [active, setActive] = useState(menu[0].id);
+  const [active, setActive] = useState<string>(menu[0]?.id ?? "");
 
   useEffect(() => {
     const io = new IntersectionObserver(
